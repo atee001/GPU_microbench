@@ -11,7 +11,7 @@
 #define BLOCK_SIZE 1
 #define UNROLL_FACTOR 32
 #define MAX_ITER 30
-#define MAX_SIZE 1UL << MAX_ITER
+#define MAX_SIZE (1UL << MAX_ITER)
 
 struct Node
 {
@@ -150,7 +150,7 @@ class PChase : public Benchmark<T> {
             for(int i = 0; i < this->iterations; i++)
             {
 
-                pChaseKernel<<<GRID_SIZE, BLOCK_SIZE>>>(d_q, d_p, d_copy, d_LatencyTimes, errors, problem_size);
+                pChaseKernel<uint32_t><<<GRID_SIZE, BLOCK_SIZE>>>(d_q, d_p, d_copy, d_LatencyTimes, errors, problem_size);
 
                 err = hipGetLastError();
 
