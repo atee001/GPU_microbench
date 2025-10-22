@@ -4,23 +4,18 @@
 #include "Pchase.hpp"
 
 #include <iostream>
+#include <stdint.h>
 
-constexpr size_t iter = 1;
+constexpr size_t iter = 2; //2 iter one for warmup
 
 int main(int argc, char* argv[])
 {
-
-    for(size_t pSize = 10; pSize < 30; pSize++)
+    
+    for(uint64_t pSize = 7; pSize < MAX_ITER; pSize++)
     {
-        PChase<size_t>* bench1 = new PChase<size_t>(iter, 1UL << pSize);
-        bench1->run();
-        delete bench1;
+        PChase<uint64_t> bench1 = PChase<uint64_t>(iter, 1UL << pSize);
+        bench1.run();
     }
-    // VectorAdd<float>* bench1 = new VectorAdd<float>(10, 1 << 24);
-    // std::cout << "Benchmark Name: " << bench1->getName() << std::endl;
-    // bench1->run();
-
-
-    // delete bench1;
+ 
     return 0;
 }

@@ -4,6 +4,9 @@
 #include <numeric>
 #include <vector>
 
+#define HIP_ASSERT(status) \
+    assert(status == hipSuccess)
+
 namespace utils{
 
     class Timer {
@@ -13,14 +16,14 @@ namespace utils{
         public:
             Timer();
             void reset();
-            double getMilliseconds() const;
+            float getMilliseconds() const;
     };
 
-    inline double mean(const std::vector<double>& data);
-    inline double standardDeviation(const std::vector<double>& data);
-    inline double minValue(const std::vector<double>& data);
-    inline double maxValue(const std::vector<double>& data);
-    inline double median(const std::vector<double>& data); 
+    inline float mean(const std::vector<float>& data);
+    inline float standardDeviation(const std::vector<float>& data);
+    inline float minValue(const std::vector<float>& data);
+    inline float maxValue(const std::vector<float>& data);
+    inline float median(const std::vector<float>& data); 
 
     Timer::Timer() { 
         reset(); 
@@ -30,47 +33,47 @@ namespace utils{
         startTime = std::chrono::high_resolution_clock::now(); 
     }
 
-    inline double Timer::getMilliseconds() const 
+    inline float Timer::getMilliseconds() const 
     {
         auto endTime = std::chrono::high_resolution_clock::now();
-        return std::chrono::duration<double, std::milli>(endTime - startTime).count();
+        return std::chrono::duration<float, std::milli>(endTime - startTime).count();
     }
 
-    inline double mean(const std::vector<double>& data)
+    inline float mean(const std::vector<float>& data)
     {
         if (data.empty()) return 0.0;
-        double sum = std::accumulate(data.begin(), data.end(), 0.0);
+        float sum = std::accumulate(data.begin(), data.end(), 0.0);
         return sum / data.size();
     }
 
-    inline double standardDeviation(const std::vector<double>& data)
+    inline float standardDeviation(const std::vector<float>& data)
     {
         if (data.size() <= 1) return 0.0;
 
-        double avg = mean(data);
-        double sq_sum = 0.0;
-        for (double x : data) {
+        float avg = mean(data);
+        float sq_sum = 0.0;
+        for (float x : data) {
             sq_sum += (x - avg) * (x - avg);
         }
         return std::sqrt(sq_sum / (data.size() - 1));
 
     }
 
-    inline double minValue(const std::vector<double>& data)
+    inline float minValue(const std::vector<float>& data)
     {
         return data.empty() ? 0.0 : *std::min_element(data.begin(), data.end());
     }
 
-    inline double maxValue(const std::vector<double>& data)
+    inline float maxValue(const std::vector<float>& data)
     {
         return data.empty() ? 0.0 : *std::max_element(data.begin(), data.end());
     }
 
-    inline double median(const std::vector<double>& data)
+    inline float median(const std::vector<float>& data)
     {
         if(data.empty()) return 0.0;
         
-        std::vector<double> temp = data;
+        std::vector<float> temp = data;
         std::sort(temp.begin(), temp.end());
 
         if(temp.size() % 2 == 0)
