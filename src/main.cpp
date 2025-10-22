@@ -13,6 +13,10 @@ int main(int argc, char* argv[])
     
     for(uint64_t pSize = 7; pSize < MAX_ITER; pSize++)
     {
+        //need to fix this purposely hardcode uint64_t as we are doing pChase on 64 bit addresses, 
+        //however the set up uses uint32_t shuffled indices which adds to a base address. 
+        //TODO: Need to clean up code
+        
         PChase<uint64_t> bench1 = PChase<uint64_t>(iter, 1UL << pSize);
         bench1.run();
     }
