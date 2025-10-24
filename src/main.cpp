@@ -2,6 +2,7 @@
 #include "VectorAdd.hpp"
 #include "Utilities.hpp"
 #include "Pchase.hpp"
+#include "Bandwidths.hpp"
 
 #include <iostream>
 #include <stdint.h>
