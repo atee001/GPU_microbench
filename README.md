@@ -1,4 +1,4 @@
-#Coarse Grain Pointer Chase
+# Coarse Grain Pointer Chase
 ## Avg Load Latency vs Working Set Size
 
 The plot below shows both mean and median load latency (in nanoseconds) across working set sizes, on a log₂ scale:
@@ -19,7 +19,7 @@ The plot below shows both mean and median load latency (in nanoseconds) across w
 
 > Source: [`latency_summary.csv`](./latency_summary.csv)
 
-#Fine Grained Pointer Chase
+# Fine Grained Pointer Chase
 
 
 
