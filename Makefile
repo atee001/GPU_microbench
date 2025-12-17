@@ -1,6 +1,6 @@
 # Compiler and flags
 CXX := hipcc
-CXXFLAGS := -std=c++11 -Wall -Wextra -Iinclude --offload-arch=gfx1100 --save-temps
+CXXFLAGS := -std=c++17 -Wall -Wextra -Iinclude --offload-arch=gfx1100 --save-temps
 
 # Directories
 SRC_DIR := src

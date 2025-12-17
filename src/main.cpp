@@ -2,12 +2,12 @@
 #include "VectorAdd.hpp"
 #include "Utilities.hpp"
 #include "Pchase.hpp"
-#include "Bandwidths.hpp"
+// #include "Bandwidths.hpp"
 
 #include <iostream>
 #include <stdint.h>
 
-constexpr size_t iter = 2; //2 iter one for warmup
+constexpr size_t iter = 1; //2 iter one for warmup
 
 int main(int argc, char* argv[])
 {
@@ -19,8 +19,9 @@ int main(int argc, char* argv[])
         //TODO: Need to clean up code
         
         PChase<uint64_t> bench1 = PChase<uint64_t>(iter, 1UL << pSize);
+        bench1.type = test_type::FINE_GRAINED;
         bench1.run();
     }
- 
+
     return 0;
 }
