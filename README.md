@@ -1,4 +1,4 @@
-
+#Coarse Grain Pointer Chase
 ## Avg Load Latency vs Working Set Size
 
 The plot below shows both mean and median load latency (in nanoseconds) across working set sizes, on a log₂ scale:
@@ -18,3 +18,17 @@ The plot below shows both mean and median load latency (in nanoseconds) across w
 | VRAM | 1,048,576 – 25,165,824 | 825.65 | 828.12 |
 
 > Source: [`latency_summary.csv`](./latency_summary.csv)
+
+#Fine Grained Pointer Chase
+
+
+
+Fine Grain Pointer Chase 
+
+| Region | Range (KB) | Median Latency (clock cycles) |
+|---------|-------------|---------------------------|
+| Vector Cache | 0 – 32 | 81 |
+| L1 Cache | 32 – 256 | 136 | 
+| L2 Cache | 256 – 6,144 | 226.5 |
+| Infinity Cache | 6,144 – 81,920 | 485.75 |
+| VRAM | 1,048,576 – 25,165,824 | 2463.5 |
