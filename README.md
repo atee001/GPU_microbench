@@ -3,7 +3,7 @@
 
 The plot below shows both mean and median load latency (in nanoseconds) across working set sizes, on a log₂ scale:
 
-![Latency Plot](./latency_plot.png)
+![Latency_Plot](./latency_plot.png)
 
 ---
 
@@ -21,14 +21,18 @@ The plot below shows both mean and median load latency (in nanoseconds) across w
 
 # Fine Grained Pointer Chase
 
+![Fine_Latency_Plot](./fineGrained_latency_plot.png)
 
-
-Fine Grain Pointer Chase 
-
-| Region | Range (KB) | Median Latency (clock cycles) |
+| Region | Range (KB) | Median Latency (clock cycles) | 
 |---------|-------------|---------------------------|
 | Vector Cache | 0 – 32 | 81 |
 | L1 Cache | 32 – 256 | 136 | 
-| L2 Cache | 256 – 6,144 | 226.5 |
-| Infinity Cache | 6,144 – 81,920 | 485.75 |
-| VRAM | 1,048,576 – 25,165,824 | 2463.5 |
+| L2 Cache | 512 – 6,144 | 226.6 |
+| Infinity Cache | 16,384 – 81,920 | 575.5 |
+| VRAM | 262144 – 25,165,824 | 2431.2 |
+
+# Reverse Engineering Cache Block Size
+
+![Line_Size_Plot](./latency_vs_access_id.png)
+
+Each point represents the measured load latency for a single byte access. Low-latency points correspond to vector cache hits, while high-latency spikes indicate compulsory misses served by MALL. Because the array is not cache-line aligned, the first miss occurs at Access ID 0 and the next at Access ID 121; subsequent misses occur at a constant stride of 128 accesses. The fixed spacing between miss events reveals a cache block size of 128 bytes.
