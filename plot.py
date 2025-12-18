@@ -4,13 +4,13 @@ import numpy as np
 import pandas as pd
 
 # === CONFIG ===
-LOG_FILE = "latency_log.txt"
+LOG_FILE = "record.log"
 PLOT_FILE = "latency_plot.png"
 TABLE_FILE = "latency_summary.csv"
 
 # === REGEX PATTERNS ===
 kb_pattern = re.compile(r"KB:\s*(\d+)")
-avg_pattern = re.compile(r"Average Load Latency \(ns\):\s*([\d.]+)")
+avg_pattern = re.compile(r"Avg Load Latency \(clock cycles\)\s*([\d.]+)")
 median_pattern = re.compile(r"Median ET\s*:\s*([\d.]+)")
 
 # === PARSE LOG FILE ===
@@ -61,11 +61,21 @@ for label, upper_limit in sorted_bounds:
 
 # === PLOT ===
 plt.figure(figsize=(10, 6))
-plt.plot(kb_values, avg_latency, marker='o', label='Mean Latency (ns)')
-plt.plot(kb_values, median_latency, marker='s', label='Median Latency (ns)')
+# plt.plot(kb_values, avg_latency, marker='o', label='Mean Latency (ns)')
+plt.plot(kb_values, median_latency, marker='s', label='Median Latency (clock cycles)')
+
+for xi, yi in zip(kb_values, median_latency):
+    plt.annotate(
+        "{:.1f}".format(yi),
+        (xi, yi),
+        textcoords="offset points",
+        xytext=(0, 6),
+        ha="center",
+        fontsize=8
+    )
 plt.xscale('log', base=2)
 plt.xlabel('Working Set Size (KB)')
-plt.ylabel('Latency (ns)')
+plt.ylabel('Latency (clock cycles)')
 plt.title('Load Latency vs Working Set Size')
 plt.grid(True, which="both", ls="--", alpha=0.6)
 
